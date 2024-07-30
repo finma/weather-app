@@ -122,28 +122,30 @@ const Weather = () => {
           />
         </WeatherSearchBar>
 
-        <WeatherInfo>
-          <WeatherIcon src={weatherData.icon} alt="Weather Icon" />
-          <WeatherTemperature>{weatherData.temperature}°c</WeatherTemperature>
-          <WeatherLocation>{weatherData.location}</WeatherLocation>
+        {weatherData.location && (
+          <WeatherInfo key={weatherData.location}>
+            <WeatherIcon src={weatherData.icon} alt="Weather Icon" />
+            <WeatherTemperature>{weatherData.temperature}°c</WeatherTemperature>
+            <WeatherLocation>{weatherData.location}</WeatherLocation>
 
-          <WeatherDataWrapper>
-            <WeatherDataItem>
-              <WeatherDataIcon src={humidityIcon} alt="Humidity Icon" />
-              <div>
-                <p>{weatherData.humidity}%</p>
-                <span>Humidity</span>
-              </div>
-            </WeatherDataItem>
-            <WeatherDataItem>
-              <WeatherDataIcon src={windIcon} alt="Wind Icon" />
-              <div>
-                <p>{weatherData.wind} Km/h</p>
-                <span>Wind Speed</span>
-              </div>
-            </WeatherDataItem>
-          </WeatherDataWrapper>
-        </WeatherInfo>
+            <WeatherDataWrapper>
+              <WeatherDataItem>
+                <WeatherDataIcon src={humidityIcon} alt="Humidity Icon" />
+                <div>
+                  <p>{weatherData.humidity}%</p>
+                  <span>Humidity</span>
+                </div>
+              </WeatherDataItem>
+              <WeatherDataItem>
+                <WeatherDataIcon src={windIcon} alt="Wind Icon" />
+                <div>
+                  <p>{weatherData.wind} Km/h</p>
+                  <span>Wind Speed</span>
+                </div>
+              </WeatherDataItem>
+            </WeatherDataWrapper>
+          </WeatherInfo>
+        )}
       </WeatherCard>
     </WeatherWrapper>
   );
