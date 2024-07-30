@@ -1,6 +1,6 @@
 import qs from "query-string";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { kelvinToCelsius } from "../../lib/utils";
 import {
@@ -61,7 +61,11 @@ interface WeatherData {
   theme: string;
 }
 
-const Weather = () => {
+interface WeatherProps {
+  setBackgroundTheme: (theme: string) => void;
+}
+
+const Weather = ({ setBackgroundTheme }: WeatherProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [weatherData, setWeatherData] = useState<WeatherData>({
     location: "",
@@ -72,48 +76,57 @@ const Weather = () => {
     theme: "clear",
   });
 
-  const search = async (city: string) => {
-    if (!city) {
-      toast.error("Please enter a city");
-      return;
-    }
+  const search = useCallback(
+    async (city: string) => {
+      if (!city) {
+        toast.error("Please enter a city");
+        return;
+      }
 
-    try {
-      const url = qs.stringifyUrl({
-        url: BASE_URL,
-        query: {
-          q: city,
-          appid: import.meta.env.VITE_APP_ID,
-        },
-      });
+      try {
+        const url = qs.stringifyUrl({
+          url: BASE_URL,
+          query: {
+            q: city,
+            appid: import.meta.env.VITE_APP_ID,
+          },
+        });
 
-      const response = await fetch(url);
-      const data = await response.json();
+        const response = await fetch(url);
+        const data = await response.json();
 
-      const weather = allIcons[data.weather[0].icon] || {
-        icon: clearIcon,
-        theme: "clear",
-      };
+        if (data.cod === "404") {
+          toast.error("City not found");
+          return;
+        }
 
-      setWeatherData({
-        location: data.name,
-        temperature: kelvinToCelsius(data.main.temp),
-        humidity: data.main.humidity,
-        wind: data.wind.speed,
-        icon: weather.icon,
-        theme: weather.theme,
-      });
-      setSearchInput("");
+        const weather = allIcons[data.weather[0].icon] || {
+          icon: clearIcon,
+          theme: "clear",
+        };
 
-      toast.success(`Successfully searched for ${city}`);
-    } catch (error) {
-      toast.error("Failed to fetch weather data");
-    }
-  };
+        setWeatherData({
+          location: data.name,
+          temperature: kelvinToCelsius(data.main.temp),
+          humidity: data.main.humidity,
+          wind: data.wind.speed,
+          icon: weather.icon,
+          theme: weather.theme,
+        });
+        setBackgroundTheme(weather.theme);
+        setSearchInput("");
+
+        toast.success(`Successfully searched for ${city}`);
+      } catch (error) {
+        toast.error("Failed to fetch weather data");
+      }
+    },
+    [setBackgroundTheme]
+  );
 
   useEffect(() => {
     search("Jakarta");
-  }, []);
+  }, [search]);
 
   return (
     <WeatherWrapper>

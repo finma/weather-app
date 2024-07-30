@@ -1,5 +1,6 @@
-import { ThemeProvider } from "styled-components";
+import { useState } from "react";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "styled-components";
 
 import { theme } from "./components/styles/theme";
 import AppStyled from "./components/styles/App.styled";
@@ -8,13 +9,15 @@ import GlobalStyles from "./components/styles/GlobalStyles";
 import Weather from "./components/weather/Weather";
 
 function App() {
+  const [backgroundTheme, setBackgroundTheme] = useState("clear");
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Toaster />
-      <AppStyled>
+      <AppStyled bg={backgroundTheme}>
         <Container>
-          <Weather />
+          <Weather setBackgroundTheme={setBackgroundTheme} />
         </Container>
       </AppStyled>
     </ThemeProvider>
