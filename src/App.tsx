@@ -4,6 +4,7 @@ import { theme } from "./components/styles/theme";
 import AppStyled from "./components/styles/App.styled";
 import Container from "./components/styles/Container.styled";
 import GlobalStyles from "./components/styles/GlobalStyles";
+import Weather from "./components/weather/Weather";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <GlobalStyles />
       <AppStyled>
         <Container>
-          <p>hello world</p>
+          <Weather />
         </Container>
       </AppStyled>
     </ThemeProvider>
