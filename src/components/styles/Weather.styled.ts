@@ -58,22 +58,26 @@ export const WeatherInfo = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  transition: all 0.3s ease-in-out;
 `;
 
 export const WeatherIcon = styled.img`
   width: 150px;
   margin: 30px 0;
+  transition: all 0.3s ease-in-out;
 `;
 
 export const WeatherTemperature = styled.p`
   color: #fff;
   font-size: 80px;
   line-height: 1;
+  transition: all 0.3s ease-in-out;
 `;
 
 export const WeatherLocation = styled.p`
   color: #fff;
   font-size: 40px;
+  transition: all 0.3s ease-in-out;
 `;
 
 export const WeatherDataWrapper = styled.div`
@@ -82,6 +86,7 @@ export const WeatherDataWrapper = styled.div`
   color: #fff;
   display: flex;
   justify-content: space-between;
+  transition: all 0.3s ease-in-out;
 `;
 
 export const WeatherDataItem = styled.div`
@@ -89,6 +94,7 @@ export const WeatherDataItem = styled.div`
   align-items: flex-start;
   gap: 12px;
   font-size: 22px;
+  transition: all 0.3s ease-in-out;
 
   span {
     display: block;
@@ -99,4 +105,5 @@ export const WeatherDataItem = styled.div`
 export const WeatherDataIcon = styled.img`
   width: 26px;
   margin-top: 10px;
+  transition: all 0.3s ease-in-out;
 `;
