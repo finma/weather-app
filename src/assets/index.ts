@@ -1,11 +1,11 @@
-import clearIcon from "../../assets/clear.png";
-import cloudIcon from "../../assets/cloud.png";
-import drizzleIcon from "../../assets/drizzle.png";
-import humidityIcon from "../../assets/humidity.png";
-import rainIcon from "../../assets/rain.png";
-import searchIcon from "../../assets/search.png";
-import snowIcon from "../../assets/snow.png";
-import windIcon from "../../assets/wind.png";
+import clearIcon from "./clear.png";
+import cloudIcon from "./cloud.png";
+import drizzleIcon from "./drizzle.png";
+import humidityIcon from "./humidity.png";
+import rainIcon from "./rain.png";
+import searchIcon from "./search.png";
+import snowIcon from "./snow.png";
+import windIcon from "./wind.png";
 
 export {
   clearIcon,
