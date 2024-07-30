@@ -2,6 +2,7 @@ import qs from "query-string";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 
+import { kelvinToCelsius } from "../../lib/utils";
 import {
   clearIcon,
   cloudIcon,
@@ -50,8 +51,6 @@ const allIcons: Record<string, WeatherIcon> = {
   "13d": { icon: snowIcon, theme: "snow" },
   "13n": { icon: snowIcon, theme: "snow" },
 };
-
-const kelvinToCelsius = (k: number) => Math.floor(k - 273.15);
 
 interface WeatherData {
   location: string;
