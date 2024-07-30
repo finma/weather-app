@@ -1,5 +1,9 @@
 # Weather App
 
+> Deploy on Vercel
+
+https://weather-app-finma.vercel.app/
+
 > Video Demo
 
 https://github.com/user-attachments/assets/bc031d9d-97f1-4f5a-8731-7f7ce2dea726
