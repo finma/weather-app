@@ -29,21 +29,26 @@ import {
 
 const BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
 
-const allIcons: Record<string, string> = {
-  "01d": clearIcon,
-  "01n": clearIcon,
-  "02d": cloudIcon,
-  "02n": cloudIcon,
-  "03d": cloudIcon,
-  "03n": cloudIcon,
-  "04d": drizzleIcon,
-  "04n": drizzleIcon,
-  "09d": rainIcon,
-  "09n": rainIcon,
-  "10d": rainIcon,
-  "10n": rainIcon,
-  "13d": snowIcon,
-  "13n": snowIcon,
+interface WeatherIcon {
+  icon: string;
+  theme: string;
+}
+
+const allIcons: Record<string, WeatherIcon> = {
+  "01d": { icon: clearIcon, theme: "clear" },
+  "01n": { icon: clearIcon, theme: "clear" },
+  "02d": { icon: cloudIcon, theme: "cloud" },
+  "02n": { icon: cloudIcon, theme: "cloud" },
+  "03d": { icon: cloudIcon, theme: "cloud" },
+  "03n": { icon: cloudIcon, theme: "cloud" },
+  "04d": { icon: drizzleIcon, theme: "drizzle" },
+  "04n": { icon: drizzleIcon, theme: "drizzle" },
+  "09d": { icon: rainIcon, theme: "rain" },
+  "09n": { icon: rainIcon, theme: "rain" },
+  "10d": { icon: rainIcon, theme: "rain" },
+  "10n": { icon: rainIcon, theme: "rain" },
+  "13d": { icon: snowIcon, theme: "snow" },
+  "13n": { icon: snowIcon, theme: "snow" },
 };
 
 const kelvinToCelsius = (k: number) => Math.floor(k - 273.15);
@@ -54,6 +59,7 @@ interface WeatherData {
   humidity: number;
   wind: number;
   icon: string;
+  theme: string;
 }
 
 const Weather = () => {
@@ -64,6 +70,7 @@ const Weather = () => {
     humidity: 0,
     wind: 0,
     icon: "",
+    theme: "clear",
   });
 
   const search = async (city: string) => {
@@ -84,14 +91,18 @@ const Weather = () => {
       const response = await fetch(url);
       const data = await response.json();
 
-      const icon = allIcons[data.weather[0].icon] || clearIcon;
+      const weather = allIcons[data.weather[0].icon] || {
+        icon: clearIcon,
+        theme: "clear",
+      };
 
       setWeatherData({
         location: data.name,
         temperature: kelvinToCelsius(data.main.temp),
         humidity: data.main.humidity,
         wind: data.wind.speed,
-        icon,
+        icon: weather.icon,
+        theme: weather.theme,
       });
       setSearchInput("");
 
@@ -107,7 +118,7 @@ const Weather = () => {
 
   return (
     <WeatherWrapper>
-      <WeatherCard>
+      <WeatherCard weatherTheme={weatherData.theme}>
         <WeatherSearchBar>
           <WeatherSearchInput
             type="text"

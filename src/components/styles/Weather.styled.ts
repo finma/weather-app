@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface WeatherCardProps {
+  weatherTheme: string;
+}
+
 export const WeatherWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -7,14 +11,15 @@ export const WeatherWrapper = styled.div`
   height: 100vh;
 `;
 
-export const WeatherCard = styled.div`
+export const WeatherCard = styled.div<WeatherCardProps>`
   padding: 40px;
   border-radius: 10px;
-  background: ${({ theme }) => theme.wheater.clear.color2};
+  background: ${({ theme, weatherTheme }) =>
+    theme.wheater[weatherTheme].color2};
   background: linear-gradient(
     320deg,
-    ${({ theme }) => theme.wheater.clear.color2} 0%,
-    ${({ theme }) => theme.wheater.clear.color1} 100%
+    ${({ theme, weatherTheme }) => theme.wheater[weatherTheme].color2} 0%,
+    ${({ theme, weatherTheme }) => theme.wheater[weatherTheme].color1} 100%
   );
 `;
 
